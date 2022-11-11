@@ -10,7 +10,7 @@ public class CurrencyExchange {
     public String toString() {
         return "CurrencyExchange{" +
                 "Id=" + Id +
-                ", CurrencyDate=" + CurrencyDate +
+                ", CurrencyDate=" + ExchangeDate +
                 ", ConvertCurrency='" + ConvertCurrency + '\'' +
                 ", ExchangeValue=" + ExchangeValue +
                 '}';
@@ -22,14 +22,6 @@ public class CurrencyExchange {
 
     public void setId(int id) {
         Id = id;
-    }
-
-    public Date getCurrencyDate() {
-        return CurrencyDate;
-    }
-
-    public void setCurrencyDate(Date currencyDate) {
-        CurrencyDate = currencyDate;
     }
 
     public String getConvertCurrency() {
@@ -48,12 +40,20 @@ public class CurrencyExchange {
         ExchangeValue = exchangeValue;
     }
 
+    public Date getExchangeDate() {
+        return ExchangeDate;
+    }
+
+    public void setExchangeDate(Date exchangeDate) {
+        ExchangeDate = exchangeDate;
+    }
+
     public CurrencyExchange() {
 
     }
 
-    public CurrencyExchange(Date currencyDate, String convertCurrency, Float exchangeValue) {
-        this.CurrencyDate = currencyDate;
+    public CurrencyExchange(Date exchangeDate, String convertCurrency, Float exchangeValue) {
+        this.ExchangeDate = exchangeDate;
         this.ConvertCurrency = convertCurrency;
         this.ExchangeValue = exchangeValue;
     }
@@ -62,8 +62,8 @@ public class CurrencyExchange {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public int Id;
-    @Column(name = "currency_date")
-    public Date CurrencyDate;
+    @Column(name = "exchange_date")
+    public Date ExchangeDate;
     @Column(name = "convert_currency")
     public String ConvertCurrency;
     @Column(name = "ExchangeValue")
