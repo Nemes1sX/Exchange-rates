@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.util.List;
 
 public interface ICurrencyService{
-    List<CurrencyExchangeDto> PrintCurrencyExchanges();
+    List<CurrencyExchangeDto> GetCurrencyExchanges();
+    List<CurrencyExchangeDto> GetCurrencyExchangesByCode(String currencyCode);
     List<CurrencyExchangeDto> ImportCurrencies(String date) throws IOException, InterruptedException, ParseException;
 }

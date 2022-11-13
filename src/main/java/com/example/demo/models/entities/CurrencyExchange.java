@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "currencyexchange")
+@Table(name = "currency_exchange")
 public class CurrencyExchange {
     @Override
     public String toString() {
