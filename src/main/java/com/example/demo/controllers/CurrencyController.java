@@ -16,10 +16,6 @@ public class CurrencyController {
     @Autowired
     CurrencyService currencyService;
 
-    public CurrencyController(CurrencyService currencyService)
-    {
-        this.currencyService = currencyService;
-    }
 
     @GetMapping("/importDate")
     public ResponseEntity<List<CurrencyExchangeDto>> ImportArchiveCurrencyData(String date)

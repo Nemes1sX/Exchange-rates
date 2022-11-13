@@ -22,10 +22,20 @@ public class CurrencyService implements  ICurrencyService {
     @Autowired
     private CurrencyRepository currencyRepository;
     @Override
-    public List<CurrencyExchangeDto> PrintCurrencyExchanges() {
+    public List<CurrencyExchangeDto> GetCurrencyExchanges() {
        List<CurrencyExchangeDto> currencyExchangeDtoList = new ArrayList<CurrencyExchangeDto>();
        List<CurrencyExchange> currencyExchangeList =  currencyRepository.findAll();
        MapCurrencyExchangeDtoList(currencyExchangeList);
+
+        return currencyExchangeDtoList;
+    }
+
+
+    @Override
+    public List<CurrencyExchangeDto> GetCurrencyExchangesByCode(String currencyCode) {
+        List<CurrencyExchangeDto> currencyExchangeDtoList = new ArrayList<CurrencyExchangeDto>();
+        List<CurrencyExchange> currencyExchangeList =  currencyRepository.findByCurrencyCode(currencyCode);
+        MapCurrencyExchangeDtoList(currencyExchangeList);
 
         return currencyExchangeDtoList;
     }
