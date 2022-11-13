@@ -16,11 +16,11 @@ public class CurrencyExchange {
                 '}';
     }
 
-    public int getId() {
+    public long getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         Id = id;
     }
 
@@ -61,7 +61,7 @@ public class CurrencyExchange {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public int Id;
+    public long Id;
     @Column(name = "exchange_date")
     public Date ExchangeDate;
     @Column(name = "convert_currency")

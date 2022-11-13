@@ -1,16 +1,16 @@
 package com.example.demo.models.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import java.util.Date;
-import java.util.List;
+
+import java.util.ArrayList;
+
 import javax.xml.bind.annotation.XmlElement;
 
 public class FxRate {
     @JsonProperty("Tp")
     public String Tp;
     public String Dt;
-    public List<CcyAmt> CcyAmt;
+    public ArrayList<CcyAmt> CcyAmt;
     public String getTp() {
         return Tp;
     }
@@ -27,11 +27,11 @@ public class FxRate {
         Dt = dt;
     }
 
-    public List<com.example.demo.models.responses.CcyAmt> getCcyAmt() {
+    public ArrayList<com.example.demo.models.responses.CcyAmt> getCcyAmt() {
         return CcyAmt;
     }
 
-    public void setCcyAmt(List<com.example.demo.models.responses.CcyAmt> ccyAmt) {
+    public void setCcyAmt(ArrayList<com.example.demo.models.responses.CcyAmt> ccyAmt) {
         CcyAmt = ccyAmt;
     }
 
@@ -39,7 +39,7 @@ public class FxRate {
     {
 
     }
-    public FxRate(String tp, String dt, List<com.example.demo.models.responses.CcyAmt> ccyAmt) {
+    public FxRate(String tp, String dt, ArrayList<com.example.demo.models.responses.CcyAmt> ccyAmt) {
         Tp = tp;
         Dt = dt;
         CcyAmt = ccyAmt;

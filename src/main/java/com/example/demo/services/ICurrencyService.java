@@ -1,11 +1,12 @@
 package com.example.demo.services;
 
 import com.example.demo.models.dtos.CurrencyExchangeDto;
-import com.example.demo.models.entities.CurrencyExchange;
-import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 public interface ICurrencyService{
     List<CurrencyExchangeDto> PrintCurrencyExchanges();
+    List<CurrencyExchangeDto> ImportCurrencies(String date) throws IOException, InterruptedException, ParseException;
 }
