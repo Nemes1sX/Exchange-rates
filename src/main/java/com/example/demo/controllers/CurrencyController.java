@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.dtos.CurrencyExchangeDto;
+import com.example.demo.models.dtos.ExchangeInfoDto;
 import com.example.demo.services.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,6 +43,21 @@ public class CurrencyController {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
             return new ResponseEntity<>(currencyExcahngeList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/exchangeCurrencyValue")
+    public ResponseEntity<ExchangeInfoDto> ExchangeCurrencyValue(String money, String currencyCode, String date)
+    {
+        try {
+            var currencyExchange = currencyService.ExchangeMoney(money, currencyCode, date);
+            if (currencyExchange == null)
+            {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(currencyExchange, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

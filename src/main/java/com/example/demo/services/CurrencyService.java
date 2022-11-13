@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.models.dtos.CurrencyExchangeDto;
+import com.example.demo.models.dtos.ExchangeInfoDto;
 import com.example.demo.models.entities.CurrencyExchange;
 import com.example.demo.models.responses.FxRates;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -11,6 +12,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -70,6 +72,23 @@ public class CurrencyService implements  ICurrencyService {
 
         return currencyExchangeDtoList;
     }
+
+    @Override
+    public ExchangeInfoDto ExchangeMoney(String money, String currencyCode, String date) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        DecimalFormat decimalFormat = new DecimalFormat("###.##");
+        var parsedDate = formatter.parse(date);
+        var parsedMoney  = Float.parseFloat(money);
+        var currencyExchange = currencyRepository.findbyCurrencyCodeAndDate(currencyCode, parsedDate);
+        if (currencyExchange == null) {
+            return null;
+        }
+        var exchangedMoney = decimalFormat.format(parsedMoney * currencyExchange.ExchangeValue);
+        var ExchangeInfoDto = new ExchangeInfoDto(exchangedMoney, currencyCode, parsedDate);
+
+        return ExchangeInfoDto;
+    }
+
 
     private List<CurrencyExchangeDto> MapCurrencyExchangeDtoList(List<CurrencyExchange> currencyExchangeList)
     {
