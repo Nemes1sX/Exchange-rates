@@ -23,6 +23,7 @@ public class TestController {
     private Environment environment;
     @GetMapping("/currency")
     public FxRates GetCurrency() throws IOException, InterruptedException {
+        String url = getUrl();
         HttpRequest request =  HttpRequest.newBuilder()
                 .uri(URI.create("http://www.lb.lt/webservices/FxRates/FxRates.asmx/getFxRates?tp=eu&dt=2017-12-25"))
                 .header("Content-Type", "text/xml")
@@ -40,8 +41,8 @@ public class TestController {
 
         return value;
     }
-    @GetMapping("/urlsite")
-    public String getUrl()
+
+    private String getUrl()
     {
         LocalDate dateObj = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
