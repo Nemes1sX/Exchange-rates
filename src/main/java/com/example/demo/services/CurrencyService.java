@@ -6,6 +6,7 @@ import com.example.demo.models.entities.CurrencyExchange;
 import com.example.demo.models.responses.FxRates;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -26,6 +27,9 @@ public class CurrencyService implements  ICurrencyService {
 
     @Autowired
     private CurrencyRepository currencyRepository;
+    @Autowired
+    private Environment environment;
+
     @Override
     public List<CurrencyExchangeDto> GetCurrencyExchanges() {
        List<CurrencyExchangeDto> currencyExchangeDtoList = new ArrayList<CurrencyExchangeDto>();
@@ -49,10 +53,12 @@ public class CurrencyService implements  ICurrencyService {
     public List<CurrencyExchangeDto> ImportCurrencies(String date) throws IOException, InterruptedException, ParseException {
         List<CurrencyExchange> currencyExchangeList = new ArrayList<CurrencyExchange>();
         List<CurrencyExchangeDto> currencyExchangeDtoList = new ArrayList<CurrencyExchangeDto>();
+        String url = environment.getProperty("lb.api.url");
+        url = url.replace("0000-00-00", date);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
         HttpRequest request =  HttpRequest.newBuilder()
-                .uri(URI.create(MessageFormat.format("http://www.lb.lt/webservices/FxRates/FxRates.asmx/getFxRates?tp=eu&dt={0}", date)))
+                .uri(URI.create(url))
                 .header("Content-Type", "text/xml")
                 .GET()
                 .build();
