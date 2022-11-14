@@ -10,8 +10,8 @@ public class CurrencyExchange {
     public String toString() {
         return "CurrencyExchange{" +
                 "Id=" + Id +
-                ", CurrencyDate=" + ExchangeDate +
-                ", ConvertCurrency='" + ConvertCurrency + '\'' +
+                ", CurrencyDate=" + exchangeDate +
+                ", ConvertCurrency='" + currencyCode + '\'' +
                 ", ExchangeValue=" + ExchangeValue +
                 '}';
     }
@@ -24,14 +24,6 @@ public class CurrencyExchange {
         Id = id;
     }
 
-    public String getConvertCurrency() {
-        return ConvertCurrency;
-    }
-
-    public void setConvertCurrency(String convertCurrency) {
-        ConvertCurrency = convertCurrency;
-    }
-
     public Float getExchangeValue() {
         return ExchangeValue;
     }
@@ -41,21 +33,29 @@ public class CurrencyExchange {
     }
 
     public Date getExchangeDate() {
-        return ExchangeDate;
+        return exchangeDate;
     }
 
-    public void setExchangeDate(Date exchangeDate) {
-        ExchangeDate = exchangeDate;
+    public void setExchangeDate(Date _exchangeDate) {
+        exchangeDate = _exchangeDate;
     }
 
     public CurrencyExchange() {
 
     }
 
-    public CurrencyExchange(Date exchangeDate, String convertCurrency, Float exchangeValue) {
-        this.ExchangeDate = exchangeDate;
-        this.ConvertCurrency = convertCurrency;
+    public CurrencyExchange(Date _exchangeDate, String _currencyCode, Float exchangeValue) {
+        this.exchangeDate = _exchangeDate;
+        this.currencyCode = _currencyCode;
         this.ExchangeValue = exchangeValue;
+    }
+
+    public String getCurrencyCode() {
+        return currencyCode;
+    }
+
+    public void setCurrencyCode(String _currencyCode) {
+        currencyCode = _currencyCode;
     }
 
     @Id
@@ -63,9 +63,9 @@ public class CurrencyExchange {
     @Column(name = "id")
     public long Id;
     @Column(name = "exchange_date")
-    public Date ExchangeDate;
-    @Column(name = "convert_currency")
-    public String ConvertCurrency;
-    @Column(name = "ExchangeValue")
+    public Date exchangeDate;
+    @Column(name = "currency_code")
+    public String currencyCode;
+    @Column(name = "exchange_value")
     public Float ExchangeValue;
 }

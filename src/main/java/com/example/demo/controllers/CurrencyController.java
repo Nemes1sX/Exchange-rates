@@ -15,7 +15,13 @@ import java.util.List;
 @RequestMapping("api/currency")
 public class CurrencyController {
     @Autowired
-    CurrencyService currencyService;
+    private CurrencyService currencyService;
+
+    /*@Autowired
+    public CurrencyController(CurrencyService currencyService)
+    {
+        this.currencyService = currencyService;
+    }*/
 
 
     @GetMapping("/importDate")

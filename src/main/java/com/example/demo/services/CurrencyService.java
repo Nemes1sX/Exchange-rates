@@ -6,6 +6,7 @@ import com.example.demo.models.entities.CurrencyExchange;
 import com.example.demo.models.responses.FxRates;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.URI;
@@ -13,12 +14,14 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.text.DecimalFormat;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+@Service
 public class CurrencyService implements  ICurrencyService {
 
     @Autowired
@@ -49,7 +52,7 @@ public class CurrencyService implements  ICurrencyService {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
         HttpRequest request =  HttpRequest.newBuilder()
-                .uri(URI.create("http://www.lb.lt/webservices/FxRates/FxRates.asmx/getFxRates?tp=eu&dt=2017-12-25"))
+                .uri(URI.create(MessageFormat.format("http://www.lb.lt/webservices/FxRates/FxRates.asmx/getFxRates?tp=eu&dt={0}", date)))
                 .header("Content-Type", "text/xml")
                 .GET()
                 .build();
@@ -79,7 +82,7 @@ public class CurrencyService implements  ICurrencyService {
         DecimalFormat decimalFormat = new DecimalFormat("###.##");
         var parsedDate = formatter.parse(date);
         var parsedMoney  = Float.parseFloat(money);
-        var currencyExchange = currencyRepository.findbyCurrencyCodeAndDate(currencyCode, parsedDate);
+        var currencyExchange = currencyRepository.findByCurrencyCodeAndExchangeDate(currencyCode, parsedDate);
         if (currencyExchange == null) {
             return null;
         }
@@ -97,8 +100,8 @@ public class CurrencyService implements  ICurrencyService {
         for (var currencyExchange : currencyExchangeList)
         {
             currencyExchangeDtoList.add(new CurrencyExchangeDto(currencyExchange.Id,
-                    currencyExchange.ExchangeDate,
-                    currencyExchange.ConvertCurrency,
+                    currencyExchange.exchangeDate,
+                    currencyExchange.currencyCode,
                     currencyExchange.ExchangeValue));
         }
 
