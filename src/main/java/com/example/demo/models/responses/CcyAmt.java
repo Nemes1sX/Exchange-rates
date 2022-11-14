@@ -3,9 +3,8 @@ package com.example.demo.models.responses;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 public class CcyAmt {
-    @JacksonXmlProperty(localName = "Ccy")
     public String Ccy;
-    @JacksonXmlProperty(localName = "Amt")
+
     public String Amt;
 
     public String getCcy() {

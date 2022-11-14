@@ -1,15 +1,16 @@
 package com.example.demo.models.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 
 import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlElement;
 
 public class FxRate {
-    @JsonProperty("Tp")
     public String Tp;
     public String Dt;
+    @JacksonXmlElementWrapper(useWrapping = false)
     public ArrayList<CcyAmt> CcyAmt;
     public String getTp() {
         return Tp;
