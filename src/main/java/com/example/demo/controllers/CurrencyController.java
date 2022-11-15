@@ -17,14 +17,7 @@ public class CurrencyController {
     @Autowired
     private CurrencyService currencyService;
 
-    /*@Autowired
-    public CurrencyController(CurrencyService currencyService)
-    {
-        this.currencyService = currencyService;
-    }*/
-
-
-    @GetMapping("/importDate")
+    @GetMapping("/importData")
     public ResponseEntity<List<CurrencyExchangeDto>> ImportArchiveCurrencyData(String date)
     {
         try {
@@ -43,7 +36,7 @@ public class CurrencyController {
     public ResponseEntity<List<CurrencyExchangeDto>> GetCurrencyData(String currencyCode)
     {
         try {
-            var currencyExcahngeList = currencyService.GetCurrencyExchangesByCode(currencyCode);
+            var currencyExcahngeList = currencyService.GetCurrencyExchangesByCode(currencyCode.toUpperCase());
             if (currencyExcahngeList.isEmpty())
             {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -10,7 +10,6 @@ import java.util.List;
 
 @Service
 public interface ICurrencyService{
-    List<CurrencyExchangeDto> GetCurrencyExchanges();
     List<CurrencyExchangeDto> GetCurrencyExchangesByCode(String currencyCode);
     List<CurrencyExchangeDto> ImportCurrencies(String date) throws IOException, InterruptedException, ParseException;
     ExchangeInfoDto ExchangeMoney(String currencyCode, String date, String money) throws ParseException;

@@ -4,6 +4,7 @@ import com.example.demo.models.dtos.CurrencyExchangeDto;
 import com.example.demo.models.dtos.ExchangeInfoDto;
 import com.example.demo.models.entities.CurrencyExchange;
 import com.example.demo.models.responses.FxRates;
+import com.example.demo.repositories.CurrencyRepository;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -15,7 +16,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.text.DecimalFormat;
-import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,20 +31,10 @@ public class CurrencyService implements  ICurrencyService {
     private Environment environment;
 
     @Override
-    public List<CurrencyExchangeDto> GetCurrencyExchanges() {
-       List<CurrencyExchangeDto> currencyExchangeDtoList = new ArrayList<CurrencyExchangeDto>();
-       List<CurrencyExchange> currencyExchangeList =  currencyRepository.findAll();
-       MapCurrencyExchangeDtoList(currencyExchangeList);
-
-        return currencyExchangeDtoList;
-    }
-
-
-    @Override
     public List<CurrencyExchangeDto> GetCurrencyExchangesByCode(String currencyCode) {
         List<CurrencyExchangeDto> currencyExchangeDtoList = new ArrayList<CurrencyExchangeDto>();
-        List<CurrencyExchange> currencyExchangeList =  currencyRepository.findByCurrencyCode(currencyCode);
-        MapCurrencyExchangeDtoList(currencyExchangeList);
+        List<CurrencyExchange> currencyExchangeList =  currencyRepository.findTop7ByCurrencyCodeOrderByExchangeDateDesc(currencyCode);
+        currencyExchangeDtoList = MapCurrencyExchangeDtoList(currencyExchangeList);
 
         return currencyExchangeDtoList;
     }
@@ -77,14 +67,14 @@ public class CurrencyService implements  ICurrencyService {
 
         currencyRepository.saveAll(currencyExchangeList);
 
-       MapCurrencyExchangeDtoList(currencyExchangeList);
+        currencyExchangeDtoList = MapCurrencyExchangeDtoList(currencyExchangeList);
 
         return currencyExchangeDtoList;
     }
 
     @Override
     public ExchangeInfoDto ExchangeMoney(String money, String currencyCode, String date) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         DecimalFormat decimalFormat = new DecimalFormat("###.##");
         var parsedDate = formatter.parse(date);
         var parsedMoney  = Float.parseFloat(money);
@@ -93,7 +83,8 @@ public class CurrencyService implements  ICurrencyService {
             return null;
         }
         var exchangedMoney = decimalFormat.format(parsedMoney * currencyExchange.ExchangeValue);
-        var ExchangeInfoDto = new ExchangeInfoDto(exchangedMoney, currencyCode, parsedDate);
+        var simplifiedDate = formatter.format(parsedDate);
+        var ExchangeInfoDto = new ExchangeInfoDto(exchangedMoney, currencyCode, simplifiedDate);
 
         return ExchangeInfoDto;
     }

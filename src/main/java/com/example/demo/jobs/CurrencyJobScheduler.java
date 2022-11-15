@@ -84,7 +84,7 @@ public class CurrencyJobScheduler {
 
     @Bean
     public SimpleTriggerFactoryBean trigger(JobDetail job) {
-        LocalDateTime now = LocalDateTime.now().withHour(12).withMinute(0);
+        LocalDateTime now = LocalDateTime.now().withHour(12).withMinute(46);
         Date date = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
 
         SimpleTriggerFactoryBean trigger = new SimpleTriggerFactoryBean();

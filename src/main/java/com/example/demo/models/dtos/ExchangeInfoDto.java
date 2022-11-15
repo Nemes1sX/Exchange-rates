@@ -5,13 +5,13 @@ import java.util.Date;
 public class ExchangeInfoDto {
     public String ExchangedValue;
     public String CurrencyCode;
-    public Date ExchangeDate;
+    public String ExchangeDate;
 
     public  ExchangeInfoDto() {
 
     }
 
-    public ExchangeInfoDto(String exchangedValue, String currencyCode, Date exchangeDate) {
+    public ExchangeInfoDto(String exchangedValue, String currencyCode, String exchangeDate) {
         ExchangedValue = exchangedValue;
         CurrencyCode = currencyCode;
         ExchangeDate = exchangeDate;
@@ -33,11 +33,11 @@ public class ExchangeInfoDto {
         CurrencyCode = currencyCode;
     }
 
-    public Date getExchangeDate() {
+    public String getExchangeDate() {
         return ExchangeDate;
     }
 
-    public void setExchangeDate(Date exchangeDate) {
+    public void setExchangeDate(String exchangeDate) {
         ExchangeDate = exchangeDate;
     }
 }
