@@ -43,7 +43,7 @@ public class CurrencyService implements  ICurrencyService {
     @Override
     public List<CurrencyExchangeDto> ImportCurrencies(String date) throws IOException, InterruptedException, ParseException {
         List<CurrencyExchange> currencyExchangeList = new ArrayList<CurrencyExchange>();
-        List<CurrencyExchangeDto> currencyExchangeDtoList = new ArrayList<CurrencyExchangeDto>();
+        List<CurrencyExchangeDto> currencyExchangeDtoList;
         String url = environment.getProperty("lb.api.url");
         url = url.replace("0000-00-00", date);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
