@@ -1,7 +1,5 @@
 package com.example.demo.models.dtos;
 
-import java.util.Date;
-
 public class ExchangeInfoDto {
     public String ExchangedValue;
     public String CurrencyCode;
