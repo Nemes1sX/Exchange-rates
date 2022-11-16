@@ -19,6 +19,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -76,23 +77,23 @@ public class CurrencyService implements  ICurrencyService {
     public ExchangeInfoDto ExchangeMoney(String money, String currencyCode, String date) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         DecimalFormat decimalFormat = new DecimalFormat("###.##");
-        var parsedDate = formatter.parse(date);
-        var parsedMoney  = Float.parseFloat(money);
-        var currencyExchange = currencyRepository.findByCurrencyCodeAndExchangeDate(currencyCode, parsedDate);
+        Date parsedDate = formatter.parse(date);
+        Float parsedMoney  = Float.parseFloat(money);
+        CurrencyExchange currencyExchange = currencyRepository.findByCurrencyCodeAndExchangeDate(currencyCode, parsedDate);
         if (currencyExchange == null) {
             return null;
         }
-        var exchangedMoney = decimalFormat.format(parsedMoney * currencyExchange.ExchangeValue);
-        var simplifiedDate = formatter.format(parsedDate);
-        var ExchangeInfoDto = new ExchangeInfoDto(exchangedMoney, currencyCode, simplifiedDate);
+        String exchangedMoney = decimalFormat.format(parsedMoney * currencyExchange.ExchangeValue);
+        String simplifiedDate = formatter.format(parsedDate);
+        ExchangeInfoDto exchangeInfoDto = new ExchangeInfoDto(exchangedMoney, currencyCode, simplifiedDate);
 
-        return ExchangeInfoDto;
+        return exchangeInfoDto;
     }
 
 
     private List<CurrencyExchangeDto> MapCurrencyExchangeDtoList(List<CurrencyExchange> currencyExchangeList)
     {
-        var currencyExchangeDtoList = new ArrayList<CurrencyExchangeDto>();
+        List<CurrencyExchangeDto> currencyExchangeDtoList = new ArrayList<CurrencyExchangeDto>();
 
         for (var currencyExchange : currencyExchangeList)
         {

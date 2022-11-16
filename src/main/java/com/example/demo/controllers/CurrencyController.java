@@ -21,7 +21,7 @@ public class CurrencyController {
     public ResponseEntity<List<CurrencyExchangeDto>> ImportArchiveCurrencyData(String date)
     {
         try {
-            var currencyExcahngeList = currencyService.ImportCurrencies(date);
+            List<CurrencyExchangeDto> currencyExcahngeList = currencyService.ImportCurrencies(date);
             if (currencyExcahngeList.isEmpty())
             {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -36,7 +36,7 @@ public class CurrencyController {
     public ResponseEntity<List<CurrencyExchangeDto>> GetCurrencyData(String currencyCode)
     {
         try {
-            var currencyExcahngeList = currencyService.GetCurrencyExchangesByCode(currencyCode.toUpperCase());
+            List<CurrencyExchangeDto> currencyExcahngeList = currencyService.GetCurrencyExchangesByCode(currencyCode.toUpperCase());
             if (currencyExcahngeList.isEmpty())
             {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -51,7 +51,7 @@ public class CurrencyController {
     public ResponseEntity<ExchangeInfoDto> ExchangeCurrencyValue(String money, String currencyCode, String date)
     {
         try {
-            var currencyExchange = currencyService.ExchangeMoney(money, currencyCode, date);
+            ExchangeInfoDto currencyExchange = currencyService.ExchangeMoney(money, currencyCode, date);
             if (currencyExchange == null)
             {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
