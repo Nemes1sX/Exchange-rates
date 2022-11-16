@@ -46,7 +46,7 @@ public class CurrencyService implements  ICurrencyService {
         List<CurrencyExchangeDto> currencyExchangeDtoList;
         String url = environment.getProperty("lb.api.url");
         url = url.replace("0000-00-00", date);
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        SimpleDateFormat formatter = GetDateFormat();
 
         HttpRequest request =  HttpRequest.newBuilder()
                 .uri(URI.create(url))
@@ -75,7 +75,7 @@ public class CurrencyService implements  ICurrencyService {
 
     @Override
     public ExchangeInfoDto ExchangeMoney(String money, String currencyCode, String date) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatter = GetDateFormat();
         DecimalFormat decimalFormat = new DecimalFormat("###.##");
         Date parsedDate = formatter.parse(date);
         Float parsedMoney  = Float.parseFloat(money);
@@ -90,15 +90,20 @@ public class CurrencyService implements  ICurrencyService {
         return exchangeInfoDto;
     }
 
+    private SimpleDateFormat GetDateFormat()
+    {
+        return new SimpleDateFormat("yyyy-MM-dd");
+    }
 
     private List<CurrencyExchangeDto> MapCurrencyExchangeDtoList(List<CurrencyExchange> currencyExchangeList)
     {
+        SimpleDateFormat formatter = GetDateFormat();
         List<CurrencyExchangeDto> currencyExchangeDtoList = new ArrayList<CurrencyExchangeDto>();
 
         for (var currencyExchange : currencyExchangeList)
         {
             currencyExchangeDtoList.add(new CurrencyExchangeDto(currencyExchange.Id,
-                    currencyExchange.exchangeDate,
+                    formatter.format(currencyExchange.exchangeDate),
                     currencyExchange.currencyCode,
                     currencyExchange.ExchangeValue));
         }

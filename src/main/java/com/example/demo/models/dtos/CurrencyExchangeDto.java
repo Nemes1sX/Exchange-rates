@@ -1,10 +1,8 @@
 package com.example.demo.models.dtos;
 
-import java.util.Date;
-
 public class CurrencyExchangeDto {
     public Long Id;
-    public Date ExchangeDate;
+    public String ExchangeDate;
     public String ConvertCurrency;
     public Float ExchangeValue;
 
@@ -12,7 +10,7 @@ public class CurrencyExchangeDto {
 
     }
 
-    public CurrencyExchangeDto(Long id, Date exchangeDate, String convertCurrency, Float exchangeValue) {
+    public CurrencyExchangeDto(Long id, String exchangeDate, String convertCurrency, Float exchangeValue) {
         super();
         Id = id;
         ExchangeDate = exchangeDate;
@@ -28,11 +26,11 @@ public class CurrencyExchangeDto {
         Id = id;
     }
 
-    public Date getExchangeDate() {
+    public String getExchangeDate() {
         return ExchangeDate;
     }
 
-    public void setExchangeDate(Date exchangeDate) {
+    public void setExchangeDate(String exchangeDate) {
         ExchangeDate = exchangeDate;
     }
 
