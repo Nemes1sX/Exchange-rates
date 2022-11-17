@@ -75,16 +75,14 @@ public class CurrencyService implements  ICurrencyService {
     public ExchangeInfoDto ExchangeMoney(String money, String currencyCode) throws ParseException {
         SimpleDateFormat formatter = GetDateFormat();
         DecimalFormat decimalFormatExchangedValue = new DecimalFormat("###.##");
-        DecimalFormat decimalFormatRateOfExchange = new DecimalFormat("###.####");
         Float parsedMoney  = Float.parseFloat(money);
         CurrencyExchange currencyExchange = currencyRepository.findTop1ByCurrencyCodeOrderByExchangeDateDesc(currencyCode);
         if (currencyExchange == null) {
             return null;
         }
         String exchangedMoney = decimalFormatExchangedValue.format(parsedMoney * currencyExchange.RateOfExchange);
-        String rateOfExchange = decimalFormatRateOfExchange.format(currencyExchange.RateOfExchange);
         String simplifiedDate = formatter.format(currencyExchange.exchangeDate);
-        ExchangeInfoDto exchangeInfoDto = new ExchangeInfoDto(currencyCode, rateOfExchange, exchangedMoney, simplifiedDate);
+        ExchangeInfoDto exchangeInfoDto = new ExchangeInfoDto(currencyCode, currencyExchange.RateOfExchange.toString(), exchangedMoney, simplifiedDate);
 
         return exchangeInfoDto;
     }
