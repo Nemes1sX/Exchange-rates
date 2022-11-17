@@ -4,18 +4,18 @@ public class CurrencyExchangeDto {
     public Long Id;
     public String ExchangeDate;
     public String ConvertCurrency;
-    public Float ExchangeValue;
+    public Float RateOfExchange;
 
     public CurrencyExchangeDto() {
 
     }
 
-    public CurrencyExchangeDto(Long id, String exchangeDate, String convertCurrency, Float exchangeValue) {
+    public CurrencyExchangeDto(Long id, String exchangeDate, String convertCurrency, Float rateOfExchange) {
         super();
         Id = id;
         ExchangeDate = exchangeDate;
         ConvertCurrency = convertCurrency;
-        ExchangeValue = exchangeValue;
+        RateOfExchange = rateOfExchange;
     }
 
     public Long getId() {
@@ -43,10 +43,10 @@ public class CurrencyExchangeDto {
     }
 
     public Float getExchangeValue() {
-        return ExchangeValue;
+        return RateOfExchange;
     }
 
-    public void setExchangeValue(Float exchangeValue) {
-        ExchangeValue = exchangeValue;
+    public void setExchangeValue(Float rateOfExchange) {
+        RateOfExchange = rateOfExchange;
     }
 }

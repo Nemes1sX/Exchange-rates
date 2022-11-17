@@ -16,7 +16,6 @@ import org.springframework.scheduling.quartz.SpringBeanJobFactory;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.Date;
 
 @Slf4j

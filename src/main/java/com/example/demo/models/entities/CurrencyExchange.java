@@ -12,7 +12,7 @@ public class CurrencyExchange {
                 "Id=" + Id +
                 ", CurrencyDate=" + exchangeDate +
                 ", ConvertCurrency='" + currencyCode + '\'' +
-                ", ExchangeValue=" + ExchangeValue +
+                ", ExchangeValue=" + RateOfExchange +
                 '}';
     }
 
@@ -25,11 +25,11 @@ public class CurrencyExchange {
     }
 
     public Float getExchangeValue() {
-        return ExchangeValue;
+        return RateOfExchange;
     }
 
-    public void setExchangeValue(Float exchangeValue) {
-        ExchangeValue = exchangeValue;
+    public void setExchangeValue(Float rateOfExchange) {
+        RateOfExchange = rateOfExchange;
     }
 
     public Date getExchangeDate() {
@@ -44,10 +44,10 @@ public class CurrencyExchange {
 
     }
 
-    public CurrencyExchange(Date _exchangeDate, String _currencyCode, Float exchangeValue) {
+    public CurrencyExchange(Date _exchangeDate, String _currencyCode, Float rateOfExchange) {
         this.exchangeDate = _exchangeDate;
         this.currencyCode = _currencyCode;
-        this.ExchangeValue = exchangeValue;
+        this.RateOfExchange = rateOfExchange;
     }
 
     public String getCurrencyCode() {
@@ -66,6 +66,6 @@ public class CurrencyExchange {
     public Date exchangeDate;
     @Column(name = "currency_code")
     public String currencyCode;
-    @Column(name = "exchange_value")
-    public Float ExchangeValue;
+    @Column(name = "rate_of_exchange")
+    public Float RateOfExchange;
 }

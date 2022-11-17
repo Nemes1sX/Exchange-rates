@@ -19,9 +19,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 @Service
 public class CurrencyService implements  ICurrencyService {
@@ -74,18 +72,19 @@ public class CurrencyService implements  ICurrencyService {
     }
 
     @Override
-    public ExchangeInfoDto ExchangeMoney(String money, String currencyCode, String date) throws ParseException {
+    public ExchangeInfoDto ExchangeMoney(String money, String currencyCode) throws ParseException {
         SimpleDateFormat formatter = GetDateFormat();
-        DecimalFormat decimalFormat = new DecimalFormat("###.##");
-        Date parsedDate = formatter.parse(date);
+        DecimalFormat decimalFormatExchangedValue = new DecimalFormat("###.##");
+        DecimalFormat decimalFormatRateOfExchange = new DecimalFormat("###.####");
         Float parsedMoney  = Float.parseFloat(money);
-        CurrencyExchange currencyExchange = currencyRepository.findByCurrencyCodeAndExchangeDate(currencyCode, parsedDate);
+        CurrencyExchange currencyExchange = currencyRepository.findTop1ByCurrencyCodeOrderByExchangeDateDesc(currencyCode);
         if (currencyExchange == null) {
             return null;
         }
-        String exchangedMoney = decimalFormat.format(parsedMoney * currencyExchange.ExchangeValue);
-        String simplifiedDate = formatter.format(parsedDate);
-        ExchangeInfoDto exchangeInfoDto = new ExchangeInfoDto(exchangedMoney, currencyCode, simplifiedDate);
+        String exchangedMoney = decimalFormatExchangedValue.format(parsedMoney * currencyExchange.RateOfExchange);
+        String rateOfExchange = decimalFormatRateOfExchange.format(currencyExchange.RateOfExchange);
+        String simplifiedDate = formatter.format(currencyExchange.exchangeDate);
+        ExchangeInfoDto exchangeInfoDto = new ExchangeInfoDto(currencyCode, rateOfExchange, exchangedMoney, simplifiedDate);
 
         return exchangeInfoDto;
     }
@@ -105,7 +104,7 @@ public class CurrencyService implements  ICurrencyService {
             currencyExchangeDtoList.add(new CurrencyExchangeDto(currencyExchange.Id,
                     formatter.format(currencyExchange.exchangeDate),
                     currencyExchange.currencyCode,
-                    currencyExchange.ExchangeValue));
+                    currencyExchange.RateOfExchange));
         }
 
         return currencyExchangeDtoList;

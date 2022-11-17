@@ -49,10 +49,10 @@ public class CurrencyController {
     }
 
     @GetMapping("/exchangeCurrencyValue")
-    public ResponseEntity<ExchangeInfoDto> ExchangeCurrencyValue(String money, String currencyCode, @RequestParam(required = false) String date)
+    public ResponseEntity<ExchangeInfoDto> ExchangeCurrencyValue(String money, String currencyCode)
     {
         try {
-            ExchangeInfoDto currencyExchange = currencyService.ExchangeMoney(money, currencyCode, date);
+            ExchangeInfoDto currencyExchange = currencyService.ExchangeMoney(money, currencyCode);
             if (currencyExchange == null)
             {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);

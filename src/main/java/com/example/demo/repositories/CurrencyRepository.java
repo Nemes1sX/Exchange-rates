@@ -12,5 +12,5 @@ import java.util.List;
 //@Repository
 public interface CurrencyRepository extends JpaRepository<CurrencyExchange, Long> {
     List<CurrencyExchange> findTop7ByCurrencyCodeOrderByExchangeDateDesc(String currencyCode);
-    CurrencyExchange findByCurrencyCodeAndExchangeDate(String CurrencyCode, Date ExchangeDate);
+    CurrencyExchange findTop1ByCurrencyCodeOrderByExchangeDateDesc(String CurrencyCode);
 }

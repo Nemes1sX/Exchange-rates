@@ -2,6 +2,7 @@ package com.example.demo.models.dtos;
 
 public class ExchangeInfoDto {
     public String ExchangedValue;
+    public String RateOfExchange;
     public String CurrencyCode;
     public String ExchangeDate;
 
@@ -9,9 +10,10 @@ public class ExchangeInfoDto {
 
     }
 
-    public ExchangeInfoDto(String exchangedValue, String currencyCode, String exchangeDate) {
+    public ExchangeInfoDto(String currencyCode, String rateOfExchange, String exchangedValue, String exchangeDate) {
         ExchangedValue = exchangedValue;
         CurrencyCode = currencyCode;
+        RateOfExchange = rateOfExchange;
         ExchangeDate = exchangeDate;
     }
 
@@ -37,5 +39,13 @@ public class ExchangeInfoDto {
 
     public void setExchangeDate(String exchangeDate) {
         ExchangeDate = exchangeDate;
+    }
+
+    public String getRateOfExchange() {
+        return RateOfExchange;
+    }
+
+    public void setRateOfExchange(String rateOfExchange) {
+        RateOfExchange = rateOfExchange;
     }
 }

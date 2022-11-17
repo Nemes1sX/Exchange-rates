@@ -12,5 +12,5 @@ import java.util.List;
 public interface ICurrencyService{
     List<CurrencyExchangeDto> GetCurrencyExchangesByCode(String currencyCode);
     List<CurrencyExchangeDto> ImportCurrencies(String date) throws IOException, InterruptedException, ParseException;
-    ExchangeInfoDto ExchangeMoney(String currencyCode, String date, String money) throws ParseException;
+    ExchangeInfoDto ExchangeMoney(String currencyCode, String money) throws ParseException;
 }
