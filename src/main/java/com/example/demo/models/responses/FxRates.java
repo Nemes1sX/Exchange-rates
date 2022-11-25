@@ -2,31 +2,24 @@ package com.example.demo.models.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @JsonPropertyOrder({"FxRate", "xlmns"})
 public class FxRates {
     @JacksonXmlElementWrapper(useWrapping = false)
-    public ArrayList<com.example.demo.models.responses.FxRate> FxRate;
+    public ArrayList<FxRate> FxRate;
     @JsonProperty("xlmns")
     public String xmlns;
-   /*@JacksonXmlText(value = false)
-    public String text;*/
 
     public FxRates()
     {
 
     }
-    public FxRates(ArrayList<com.example.demo.models.responses.FxRate> fxRate, String xmlns)  {
+    public FxRates(ArrayList<FxRate> fxRate, String xmlns)  {
         FxRate = fxRate;
-        this.xmlns = xmlns;
-        //this.text = text;
+        xmlns = xmlns;
     }
 
     public ArrayList<com.example.demo.models.responses.FxRate> getFxRate() {
@@ -44,12 +37,4 @@ public class FxRates {
     public void setXmlns(String xmlns) {
         this.xmlns = xmlns;
     }
-
-   /* public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }*/
 }

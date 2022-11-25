@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.quartz.JobDetail;
 import org.quartz.Trigger;
 import org.quartz.spi.TriggerFiredBundle;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,12 +22,8 @@ import java.util.Date;
 @Slf4j
 @Configuration
 public class QuartzConfig {
-
-    final ApplicationContext applicationContext;
-
-    public QuartzConfig(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
+    @Autowired
+    ApplicationContext applicationContext;
 
     @Bean
     SpringBeanJobFactory createSpringBeanJobFactory (){
